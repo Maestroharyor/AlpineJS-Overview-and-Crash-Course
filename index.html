@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.0/dist/cdn.min.js"
+      defer
+    ></script>
+  </head>
+
+  <body
+    class="bg-gray-100 min-h-screen flex items-center justify-center"
+    x-data="{newTodo: '', todos: []}"
+  >
+    <div class="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+      <h1 class="text-2xl font-bold mb-4 text-center">To-Do List</h1>
+      <form
+        class="flex mb-4"
+        @submit.prevent="if(newTodo.trim() !==''){todos.push({text: newTodo, done: false}); newTodo = '';}"
+      >
+        <input
+          type="text"
+          placeholder="Add a new task..."
+          class="w-full p-2 border rounded-l"
+          x-model="newTodo"
+        />
+        <button class="bg-blue-500 text-white p-2 rounded-r hover:bg-blue-600">
+          Add
+        </button>
+      </form>
+      <ul>
+        <template x-for="(todo, index) in todos">
+          <li
+            class="flex items-center justify-between bg-gray-100 p-2 mb-2 rounded"
+          >
+            <span
+              class="flex-1"
+              x-text="todo.text"
+              :class="{'line-through': todo.done}"
+            ></span>
+            <div class="flex space-x-2">
+              <button
+                class="text-green-500 hover:text-green-600"
+                @click="todo.done = !todo.done"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  x-show="!todo.done"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  x-show="todo.done"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2l4-4M7 12a5 5 0 1110 0a5 5 0 01-10 0z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="text-red-500 hover:text-red-600"
+                @click="todos.splice(index, 1)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </body>
+</html>

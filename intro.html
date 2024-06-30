@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine JS</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.0.0/dist/cdn.min.js"
+      defer
+    ></script>
+  </head>
+
+  <body
+    class="bg-gray-100 min-h-screen flex items-center justify-center"
+    x-data="{count: 0, increaseCount(){this.count++; alert(this.count)}, showData: false}"
+  >
+    <div class="container mx-auto flex flex-col items-center justify-center">
+      <h1 class="text-2xl font-bold mb-4 text-center">Alpine JS</h1>
+      <button
+        @click="increaseCount"
+        class="bg-blue-500 text-white py-2 px-5 rounded hover:bg-blue-600"
+      >
+        Increase
+      </button>
+      <p x-text="count"></p>
+
+      <div
+        class="bg-gray-200 p-3 mt-3"
+        x-show="showData"
+        x-transition:enter.duration.500ms
+        x-transition:leave.duration.1000ms
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna
+        euismod, consequat nunc a, pulvinar justo. Fusce condimentum, urna at
+        aliquet cursus, erat elit luctus lorem, id posuere justo lacus id est.
+        Vestibulum nec fermentum mauris. Aliquam erat volutpat. Sed ac ante
+        felis. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas.
+      </div>
+      <button
+        @click="showData = !showData"
+        class="bg-blue-500 text-white py-2 px-5 rounded hover:bg-blue-600"
+      >
+        <span x-text="showData ? 'Hide' : 'Show'"></span> Data
+      </button>
+    </div>
+  </body>
+</html>
